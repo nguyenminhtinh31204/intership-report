@@ -1,0 +1,54 @@
+baseURL = "https://example.github.io/intership-report/"
+title = "Internship Report"
+theme = "hugo-theme-learn"
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+relativeURLs = false
+canonifyURLs = false
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
+
+[params]
+themeVariant = "workshop"
+author = "First Cloud AI Journey"
+description = "Internship report static website built with Hugo."
+showVisitedLinks = true
+disableBreadcrumb = false
+disableNextPrev = false
+disableAssetsBusting = false
+
+[languages]
+[languages.en]
+title = "Internship Report"
+weight = 1
+label = "English"
+
+[[languages.en.menu.shortcuts]]
+name = "<i class='fas fa-blog'></i> AWS Study Group - Blog"
+identifier = "aws-study-group-blog"
+url = "https://awsstudygroup.com/"
+weight = 10
+
+[[languages.en.menu.shortcuts]]
+name = "<i class='fab fa-facebook'></i> AWS Study Group - FB Group"
+identifier = "aws-study-group-facebook"
+url = "https://www.facebook.com/groups/awsstudygroupfcj/"
+weight = 20
+
+[languages.vi]
+title = "Internship Report"
+weight = 2
+label = "Tiếng Việt"
+
+[[languages.vi.menu.shortcuts]]
+name = "<i class='fas fa-blog'></i> AWS Study Group - Blog"
+identifier = "aws-study-group-blog"
+url = "https://awsstudygroup.com/"
+weight = 10
+
+[[languages.vi.menu.shortcuts]]
+name = "<i class='fab fa-facebook'></i> AWS Study Group - FB Group"
+identifier = "aws-study-group-facebook"
+url = "https://www.facebook.com/groups/awsstudygroupfcj/"
+weight = 20
