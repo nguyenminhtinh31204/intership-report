@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      HUGO_VERSION: 0.148.2
+      HUGO_VERSION: 0.163.1
 
     steps:
       - name: Checkout
@@ -35,11 +35,12 @@ jobs:
           sudo dpkg -i hugo.deb
 
       - name: Setup Pages
+        id: pages
         uses: actions/configure-pages@v5
 
       - name: Build with Hugo
         run: |
-          hugo --gc --minify --baseURL "https://nguyenminhtinh31204.github.io/intership-report/"
+          hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -28,4 +28,4 @@ hugo --minify
 1. Update `baseURL` in `config/_default/hugo.toml` to your GitHub Pages URL.
 2. Push this repository to GitHub.
 3. In GitHub, open `Settings` > `Pages` and choose `GitHub Actions`.
-4. Push to `main`; the workflow in `.github/workflows/deploy-pages.yml` publishes the site.
+4. Push to `main`; the workflow in `.github/workflows/hugo.yml` publishes the site.
