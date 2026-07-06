@@ -1,6 +1,7 @@
 +++
 title = "Nhật ký công việc"
 weight = 1
+pre = "<b>1. </b>"
 +++
 
 # Nhật ký công việc

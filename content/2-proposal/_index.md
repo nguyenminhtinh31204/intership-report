@@ -1,6 +1,7 @@
 +++
 title = "Proposal"
 weight = 2
+pre = "<b>2. </b>"
 +++
 
 # 🧾 Serverless AI Invoice Scanner – Solution to automate invoice extraction and management using AI on the AWS platform

@@ -1,6 +1,7 @@
 +++
 title = "Posted blog posts"
 weight = 3
+pre = "<b>3. </b>"
 +++
 
 # Posted blog posts

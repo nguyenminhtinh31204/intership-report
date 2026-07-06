@@ -1,6 +1,7 @@
 +++
 title = "Sharing and Feedback"
 weight = 7
+pre = "<b>7. </b>"
 +++
 
 During the **First Cloud AI Journey** program and the **Serverless AI Invoice Scanner** project, I gained many useful learning and hands-on experiences. The program helped me better understand AWS Cloud, serverless architecture, real application deployment, and teamwork in a technology environment.

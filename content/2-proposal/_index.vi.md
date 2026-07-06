@@ -1,6 +1,7 @@
 +++
 title = "Bản đề xuất"
 weight = 2
+pre = "<b>2. </b>"
 +++
 
 # 🧾 Serverless AI Invoice Scanner – Giải pháp tự động hóa trích xuất và quản lý hóa đơn bằng AI trên nền tảng AWS

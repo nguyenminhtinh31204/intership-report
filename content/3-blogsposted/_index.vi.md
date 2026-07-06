@@ -1,6 +1,7 @@
 +++
 title = "Các bài blogs đã đăng"
 weight = 3
+pre = "<b>3. </b>"
 +++
 
 # Các bài blogs đã đăng

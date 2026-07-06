@@ -1,6 +1,7 @@
 +++
 title = "Self-Assessment"
 weight = 6
+pre = "<b>6. </b>"
 +++
 
 During my internship at **First Cloud Journey / AWS Workshop** from **April 19, 2026** to **July 12, 2026**, I had the opportunity to learn, practice, and apply knowledge from school in a real working environment.

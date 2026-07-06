@@ -1,6 +1,7 @@
 +++
 title = "Chia sẻ, đóng góp ý kiến"
 weight = 7
+pre = "<b>7. </b>"
 +++
 
 Trong quá trình tham gia chương trình **First Cloud AI Journey** và thực hiện dự án **Serverless AI Invoice Scanner**, tôi đã có nhiều trải nghiệm học tập và thực hành bổ ích. Chương trình giúp tôi hiểu rõ hơn về AWS Cloud, kiến trúc serverless, quy trình triển khai một ứng dụng thực tế và cách làm việc nhóm trong môi trường công nghệ.

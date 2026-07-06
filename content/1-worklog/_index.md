@@ -1,6 +1,7 @@
 +++
 title = "Work Logs"
 weight = 1
+pre = "<b>1. </b>"
 +++
 
 This work diary summarizes my internship progress during the **12-week AWS internship program**. The internship was divided into two main phases: learning AWS fundamentals through **First Cloud Journey** and applying the knowledge to build the project **Serverless AI Invoice Scanner**.

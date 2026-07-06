@@ -1,6 +1,7 @@
 +++
 title = "Tự đánh giá"
 weight = 6
+pre = "<b>6. </b>"
 +++
 
 Trong suốt thời gian thực tập tại **First Cloud Journey / AWS Workshop** từ **19/04/2026** đến **12/07/2026**, tôi đã có cơ hội học hỏi, rèn luyện và áp dụng kiến thức đã được trang bị tại trường vào môi trường làm việc thực tế.
