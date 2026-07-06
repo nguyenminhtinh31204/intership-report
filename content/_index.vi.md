@@ -1,38 +1,45 @@
 +++
-title = "BÃ¡o cÃ¡o thá»±c táº­p"
+title = "Báo cáo thực tập"
 weight = 10
 +++
 
-# BÃ¡o cÃ¡o thá»±c táº­p
+# Báo cáo thực tập
 
-### ThÃ´ng tin sinh viÃªn:
+### Thông tin sinh viên:
 
- **Há» vÃ  tÃªn:** Nguyá»…n VÄƒn A
+ **Họ và tên:** Nguyễn Minh Tình
 
- **Sá»‘ Ä‘iá»‡n thoáº¡i:** 0989888999
+ **Số điện thoại:** 0862177913
 
- **Email:** [Anguyenvan@gmail.com](mailto:Anguyenvan@gmail.com)
+ **Email:** [nguyentinh31204@gmail.com](mailto:nguyetinh31204@gmail.com)
 
- **TrÆ°á»ng:** Äáº¡i há»c SÆ° pháº¡m Ká»¹ thuáº­t TP.HCM
+ **Trường:** Đại học Công nghệ TP.HCM
 
- **NgÃ nh:** CÃ´ng nghá»‡ thÃ´ng tin
+ **Ngành:** Công nghệ thông tin
 
- **Lá»›p:** AWS082025
+ **Lớp:** 22DTHB2
 
- **CÃ´ng ty thá»±c táº­p:** CÃ´ng ty TNHH Amazon Web Services Viet Nam
+ **Công ty thực tập:** Công ty TNHH Amazon Web Services Viet Nam
 
- **Vá»‹ trÃ­ thá»±c táº­p:** Workforce Bootcamp - First Cloud AI Journey
+ **Vị trí thực tập:** Workforce Bootcamp - First Cloud AI Journey
 
- **Thá»i gian thá»±c táº­p:** Tá»« ngÃ y 12/08/2025 Ä‘áº¿n ngÃ y 12/11/2025
+ **Tên người hướng dẫn:** Nguyễn Gia Hưng
+ 
+ **Email người hướng dẫn:** hunggia@amazon.com
+ 
+ **Số điện thoại:** 0817870645
+ 
+ **Chức vụ người hướng dẫn:** Head of Solution Architect
 
-![áº¢nh Ä‘áº¡i diá»‡n cá»§a báº¡n](/images/avatar.png)
+  **Thời gian thực tập:** Từ ngày 17/04/2026 đến ngày 10/07/2026
+![Ảnh đại diện của bạn](/images/avt.jpg)
 
-### Ná»™i dung bÃ¡o cÃ¡o
+### Nội dung báo cáo
 
 - [Worklog](/vi/1-worklog/)
 - [Proposal](/vi/2-proposal/)
-- [CÃ¡c bÃ i blogs Ä‘Ã£ Ä‘Äƒng](/vi/3-blogsposted/)
-- [CÃ¡c events Ä‘Ã£ tham gia](/vi/4-eventparticipated/)
+- [Các bài blogs đã đăng](/vi/3-blogsposted/)
+- [Các events đã tham gia](/vi/4-eventparticipated/)
 - [Workshop](/vi/5-workshop/)
-- [Tá»± Ä‘Ã¡nh giÃ¡](/vi/6-self-evaluation/)
-- [Chia sáº», Ä‘Ã³ng gÃ³p Ã½ kiáº¿n](/vi/7-feedback/)
+- [Tự đánh giá](/vi/6-self-evaluation/)
+- [Chia sẻ, đóng góp ý kiến](/vi/7-feedback/)

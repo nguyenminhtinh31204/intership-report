@@ -1,40 +1,46 @@
 +++
-title = "Internship Report"
+title = "Internship report"
 weight = 10
 +++
 
-# Internship Report
+# Internship report
 
-âš ï¸ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
+### Student information:
 
-### Student Information:
+**Full name:** Nguyen Minh Tinh
 
- **Full Name:** Nguyen Van A
+**Phone number:** 0862177913
 
- **Phone Number:** 0989888999
+ **Email:** [nguyentinh31204@gmail.com](mailto:nguyetinh31204@gmail.com)
 
- **Email:** [Anguyenvan@gmail.com](mailto:Anguyenvan@gmail.com)
+**School:** Ho Chi Minh City University of Technology
 
- **University:** Ho Chi Minh City University of Technology and Education
+**Major:** Information Technology
 
- **Major:** Information Technology
+**Class:** 22DTHB2
 
- **Class:** AWS082025
+**Internship company:** Amazon Web Services Vietnam Co., Ltd
 
- **Internship Company:** Amazon Web Services Viet Nam Company Limited
+**Internship position:** Workforce Bootcamp - First Cloud AI Journey
 
- **Internship Position:** Workforce Bootcamp - First Cloud AI Journey
+**Mentor Name:** Nguyễn Gia Hưng
 
- **Internship Duration:** From 12/08/2025 to 12/11/2025
+**Mentor Email:** hunggia@amazon.com
 
-![Your profile picture](/images/avatar.png)
+**Phone Number:** 0817870645
 
-### Report Content
+**Mentor Role:** Head of Solution Architect
+
+**Internship period:** From April 17, 2026 to July 10, 2026
+
+![Your profile picture](/images/avt.jpg)
+
+### Report content
 
 - [Worklog](/1-worklog/)
 - [Proposal](/2-proposal/)
-- [BlogsPosted](/3-blogsposted/)
-- [Events Participated](/4-eventparticipated/)
+- [Posted blog posts](/3-blogsposted/)
+- [Participated events](/4-eventparticipated/)
 - [Workshop](/5-workshop/)
-- [Self-evaluation](/6-self-evaluation/)
-- [Sharing and Feedback](/7-feedback/)
+- [Self-assessment](/6-self-evaluation/)
+- [Share and contribute ideas](/7-feedback/)

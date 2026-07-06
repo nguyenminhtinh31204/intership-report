@@ -1,22 +1,11 @@
 +++
-title = "Blogs Posted"
+title = "Posted blog posts"
 weight = 3
 +++
 
-# Blogs Posted
+# Posted blog posts
 
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
+Here will be a list and introduction of blogs that you have posted on [AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj). For example:
 
-This section will list and introduce the blogs you have posted to [AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj). For example:
+### [Blog 1 - SAWS Summit New York 2026: AI Agent Strategy for Enterprises](/3-blogsposted/_index.md)
 
-### [Blog 1 - SESSION POLICIES IN AMAZON EKS POD IDENTITY](/3-blogsposted/3.1-blog1/)
-
-This blog introduces the newly added session policies feature in Amazon EKS Pod Identity, which allows you to narrow IAM permissions flexibly and precisely for each pod without needing to create multiple separate IAM roles. This is an important step forward that helps apply the principle of least privilege more effectively in large-scale Kubernetes environments.
-
-### [Blog 2 - …](/3-blogsposted/3.2-blog2/)
-
-This blog introduces the newly added session policies feature in Amazon EKS Pod Identity, which allows you to narrow IAM permissions flexibly and precisely for each pod without needing to create multiple separate IAM roles. This is an important step forward that helps apply the principle of least privilege more effectively in large-scale Kubernetes environments.
-
-### [Blog 3 - …](/3-blogsposted/3.3-blog3/)
-
-This blog introduces the newly added session policies feature in Amazon EKS Pod Identity, which allows you to narrow IAM permissions flexibly and precisely for each pod without needing to create multiple separate IAM roles. This is an important step forward that helps apply the principle of least privilege more effectively in large-scale Kubernetes environments.

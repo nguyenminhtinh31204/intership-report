@@ -5,6 +5,7 @@ defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 relativeURLs = false
 canonifyURLs = false
+buildFuture = true
 
 [outputs]
 home = ["HTML", "RSS", "JSON"]

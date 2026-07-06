@@ -1,0 +1,116 @@
+---
+title: "Create S3 Bucket"
+weight: 501
+chapter: false
+pre: " <b> 5.1 </b> "
+---
+
+#### Overview
+
+In this step, you will create an **S3 bucket** to store invoice files uploaded by users. This bucket will be created in the **ap-southeast-1(Singapore)** region, and you will also configure an **event notification** to trigger a **Lambda function** whenever a new file is uploaded into a specific folder.
+
+---
+
+#### Step 1: Access S3 Console
+
+1. Log in to the [AWS Console](https://console.aws.amazon.com/), search for **S3**, then select **S3** from the results.
+
+![S3 Console](/images/5-Workshop/5.1-create-s3-bucket/001-opens3console.png)
+
+{{% notice info %}}
+💡 **Note:** Before creating the bucket, make sure you have selected the correct region **ap-southeast-1** in the upper right corner of the AWS Console screen.  
+Creating the S3 bucket in the correct region is crucial for services like Lambda or Textract to work seamlessly.
+{{% /notice %}}
+
+2. Click **Create bucket** to start creating a new one.
+
+![Create Bucket](/images/5-Workshop/5.1-create-s3-bucket/002-createbucket.png)
+
+---
+
+#### Step 2: Configure the bucket
+
+1. **Bucket name**: `invoice-upload-s3-bucket`
+
+![Configure Bucket](/images/5-Workshop/5.1-create-s3-bucket/003-bucketname-region.png)
+
+{{% notice info %}}
+💡 **Note:** Bucket names must be globally unique. You may add a suffix if the name is already taken, e.g., **invoice-upload-s3-bucket-113**.
+{{% /notice %}}
+
+2. In the **Object Ownership** section, select **ACLs disabled**.
+
+3. **Block Public Access settings**: keep default settings (all enabled) to ensure data is not public.
+
+![Block Public Access](/images/5-Workshop/5.1-create-s3-bucket/004-publicaccess.png)
+
+4. In the **Bucket Versioning** section, select **Disabled**.
+
+![Versioning](/images/5-Workshop/5.1-create-s3-bucket/006-versioning.png)
+
+5. In the **Default encryption** section, choose **Amazon S3 managed keys (SSE-S3)**.
+
+6. Click **Create bucket** to finish.
+
+![Encryption](/images/5-Workshop/5.1-create-s3-bucket/005-encryption.png)
+
+7. Verify that the **Bucket** has been created.
+
+![Bucket](/images/5-Workshop/5.1-create-s3-bucket/007-check-bucket.png)
+
+---
+
+#### Step 3: Create the `uploads/` folder
+
+1. Inside the newly created bucket, click **Create folder**.
+
+![Create Folder](/images/5-Workshop/5.1-create-s3-bucket/008-create-folder.png)
+
+2. Name the folder: `uploads`
+
+![Create Folder](/images/5-Workshop/5.1-create-s3-bucket/009-folder-name.png)
+
+3. Click **Create folder** to confirm.
+
+![Create Folder](/images/5-Workshop/5.1-create-s3-bucket/010-createuploads.png)
+
+4. Verify that the folder has been created.
+
+![Create Folder](/images/5-Workshop/5.1-create-s3-bucket/011-checkfolder.png)
+
+---
+
+#### Step 7: Set up Event Notification
+
+1. Go to the **Properties** tab of the bucket.
+
+![Event Notifications](/images/5-Workshop/5.1-create-s3-bucket/012-properties.png)
+
+2. Scroll down to **Event notifications** → select **Create event notification**.
+
+![Event Notifications](/images/5-Workshop/5.1-create-s3-bucket/013-createevent.png)
+
+3. Configure as follows:
+
+    - **Name**: `TriggerLambdaOnUpload`
+    - **Prefix**: `uploads/`
+    - **Suffix**: _(leave blank)_
+    - **Event types**: select `PUT` (All object create events)
+    - **Destination**: select **Lambda function**
+    - **Lambda function**: select `UploadInvoiceFileFunction`
+{{% notice info %}}
+    You will not see the Lambda function at this stage; therefore, proceed to create Lambda function #1 first, then return to complete this step.
+{{% /notice %}}
+![Event Settings](/images/5-Workshop/5.1-create-s3-bucket/014-eventsettings.png)
+
+![Event Settings](/images/5-Workshop/5.1-create-s3-bucket/015-eventsettings.png)
+
+![Event Settings](/images/5-Workshop/5.1-create-s3-bucket/016-eventsettings.png)
+
+4. Click **Save changes** to complete the setup.
+
+![Event Settings](/images/5-Workshop/5.1-create-s3-bucket/017-savechanges.png)
+
+{{% notice info %}}
+If you don’t see the Lambda function listed, make sure it was created in the correct region **(ap-southeast-1)** and that the Lambda's IAM role has the **s3:PutBucketNotification** permission.
+{{% /notice %}}
