@@ -1,251 +1,101 @@
 +++
 title = "Workshop"
 weight = 5
-chapter = false
 pre = "<b>5. </b>"
 +++
 
-# Workshop
+# Xây dựng hệ thống quét hóa đơn bằng AI trên kiến trúc Serverless
 
-## Tổng quan
+### Tổng quan
 
-Trong mục workshop này, chúng ta sẽ xây dựng phần **Backend API** cho dự án **Serverless AI Invoice Scanner**.
+Trong bài lab này, bạn sẽ xây dựng một hệ thống quét hóa đơn sử dụng AI trên kiến trúc serverless của AWS. Ứng dụng cho phép người dùng tải lên file hóa đơn, lưu trữ file trong Amazon S3, trích xuất văn bản và dữ liệu có cấu trúc bằng Amazon Textract, chuẩn hóa dữ liệu đã trích xuất bằng OpenAI API, lưu kết quả cuối cùng vào Amazon DynamoDB và truy cập dữ liệu thông qua Amazon API Gateway.
 
-Phần này tập trung vào nhiệm vụ của vai trò **Backend API Developer**, bao gồm:
+Phần frontend được triển khai bằng AWS Amplify Hosting và sử dụng Amazon Cognito để hỗ trợ chức năng đăng ký, đăng nhập người dùng. Hệ thống cũng sử dụng Amazon CloudWatch để theo dõi log và hỗ trợ xử lý lỗi trong quá trình vận hành backend.
 
-- Xây dựng các route trong **Amazon API Gateway**.
-- Tạo **Upload Lambda Function**.
-- Tạo **Fetch Invoice Lambda Function**.
-- Kết nối Lambda với **Amazon S3**.
-- Kết nối Lambda với **Amazon DynamoDB**.
-- Cấu hình CORS để frontend có thể gọi API.
-- Kiểm thử các API endpoint bằng Postman hoặc frontend.
+{{% notice info %}}
+Trong project này, bước chuẩn hóa dữ liệu bằng AI sử dụng OpenAI API thay cho Amazon Bedrock. OpenAI API key cần được lưu trữ an toàn ở phía backend, ví dụ trong Lambda environment variables hoặc AWS Secrets Manager, và không được đưa trực tiếp vào frontend.
+{{% /notice %}}
 
-Mục tiêu của phần này là xây dựng một backend serverless hoạt động ổn định, cho phép React frontend upload file hóa đơn, lấy dữ liệu hóa đơn, tìm kiếm hóa đơn và cập nhật thông tin hóa đơn.
+![Architecture Diagram](/images/5-Workshop/architecture-log.png)
 
 ---
 
-## Kiến trúc Backend API
+#### Amazon S3
 
-Luồng backend API của dự án được mô tả như sau:
-
-```txt
-React Frontend
-    ↓
-Amazon API Gateway
-    ↓
-AWS Lambda
-    ↓
-Amazon S3 / Amazon DynamoDB
-```
-
-Dự án hiện tại sử dụng hai Lambda Function chính:
-
-| Lambda Function | Chức năng |
-|---|---|
-| `UploadInvoiceFileFunction` | Nhận request upload hóa đơn từ API Gateway, lưu file vào S3 và xử lý file khi được S3 trigger kích hoạt. |
-| `FetchInvoiceDetailsFunction` | Lấy dữ liệu, tìm kiếm và cập nhật thông tin hóa đơn trong DynamoDB thông qua request từ API Gateway. |
-
----
-
-## Các mục nhỏ trong Workshop
-
-Mục workshop này bao gồm **6 mục nhỏ**. Mỗi mục tập trung vào một phần trong quá trình xây dựng backend API.
-
----
-
-### 5.1 Tạo S3 Bucket
-
-[Đi tới mục 5.1](/5-workshop/5.1-create-s3-bucket/)
-
-Trong mục này, chúng ta sẽ tạo **Amazon S3 Bucket** để lưu trữ các file hóa đơn được upload từ frontend.
-
-S3 Bucket đóng vai trò là nơi lưu trữ file đầu vào của hệ thống. Các file hóa đơn sẽ được lưu trong prefix:
+Amazon S3 (Simple Storage Service) là dịch vụ lưu trữ đối tượng của AWS, được sử dụng để lưu các file hóa đơn do người dùng tải lên. Trong hệ thống này, file hóa đơn thường được lưu trong S3 bucket tại thư mục:
 
 ```txt
 uploads/
 ```
 
-Các công việc chính:
+Sau khi file được tải lên, S3 có thể kích hoạt một Lambda function thông qua S3 Event Notification để bắt đầu quy trình xử lý hóa đơn.
 
-- Tạo S3 bucket.
-- Cấu hình tên bucket và AWS Region.
-- Bật Block Public Access để bảo vệ dữ liệu.
-- Chuẩn bị prefix `uploads/`.
-- Kiểm tra Lambda có thể upload file vào bucket.
+#### Amazon Textract
 
----
+Amazon Textract là dịch vụ AI của AWS dùng để trích xuất văn bản, bảng biểu, biểu mẫu và dữ liệu có cấu trúc từ tài liệu như hóa đơn. Trong hệ thống này, Textract được sử dụng để đọc nội dung hóa đơn và giảm thao tác nhập liệu thủ công.
 
-### 5.2 Tạo DynamoDB Table
+#### OpenAI API
 
-[Đi tới mục 5.2](/5-workshop/5.2-create-dynamodb-table/)
+OpenAI API được sử dụng để phân tích và chuẩn hóa phần văn bản được trích xuất bởi Amazon Textract. OpenAI API giúp chuyển đổi dữ liệu OCR thô thành dữ liệu hóa đơn có cấu trúc, ví dụ như tên khách hàng, số hóa đơn, ngày hóa đơn, tổng tiền, loại tiền tệ và thông tin chi tiết của hóa đơn.
 
-Trong mục này, chúng ta sẽ tạo **Amazon DynamoDB Table** để lưu dữ liệu hóa đơn đã được xử lý.
+{{% notice warning %}}
+OpenAI API là một dịch vụ bên ngoài AWS và không nằm trong AWS Cloud. API key cần được lưu trữ an toàn ở phía backend và không được đặt trong mã nguồn React hoặc public repository.
+{{% /notice %}}
 
-Tên bảng sử dụng trong dự án là:
+#### AWS Lambda
 
-```txt
-InvoiceData
-```
+AWS Lambda là dịch vụ serverless compute cho phép chạy code backend mà không cần quản lý server. Trong project này, các Lambda functions được sử dụng để xử lý upload hóa đơn, xử lý file sau khi được tải lên S3, gọi Amazon Textract và OpenAI API, cũng như quản lý dữ liệu hóa đơn trong DynamoDB.
 
-Các công việc chính:
+Hệ thống sử dụng một số Lambda functions chính như:
 
-- Tạo DynamoDB table `InvoiceData`.
-- Cấu hình `InvoiceId` làm partition key.
-- Chuẩn bị bảng để lưu dữ liệu hóa đơn đã trích xuất.
-- Hiểu các field được frontend sử dụng như `CustomerName`, `InvoiceDate`, `TotalAmount`, `Tags` và `Starred`.
+- `UploadInvoiceFileFunction`
+- `FetchInvoiceDetailsFunction`
 
----
+#### Amazon DynamoDB
 
-### 5.3 Tạo Upload Lambda Function
+Amazon DynamoDB là cơ sở dữ liệu NoSQL được quản lý hoàn toàn bởi AWS, dùng để lưu dữ liệu hóa đơn sau khi đã được trích xuất và chuẩn hóa. Trong hệ thống này, DynamoDB lưu các thông tin như mã hóa đơn, tên khách hàng, số hóa đơn, ngày hóa đơn, tổng tiền, loại tiền tệ, tags, trạng thái đánh dấu quan trọng và dữ liệu hóa đơn đã được trích xuất.
 
-[Đi tới mục 5.3](/5-workshop/5.3-create-upload-lambda/)
+#### Amazon API Gateway
 
-Trong mục này, chúng ta sẽ tạo **UploadInvoiceFileFunction**, và cấu hình **S3 ObjectCreated Trigger** cho `UploadInvoiceFileFunction`
+Amazon API Gateway được sử dụng để tạo và quản lý các REST API endpoint cho ứng dụng. Trong hệ thống này, API Gateway cung cấp các endpoint để upload file hóa đơn, lấy danh sách hóa đơn, xem chi tiết hóa đơn, tìm kiếm hóa đơn và cập nhật metadata như tags hoặc trạng thái starred.
 
-Function này nhận file hóa đơn từ API Gateway, decode nội dung file dạng base64 và lưu file đã upload vào Amazon S3.
-
-Các công việc chính:
-
-- Tạo `UploadInvoiceFileFunction`.
-- Cấu hình runtime và handler cho Lambda.
-- Thêm environment variables như `BUCKET_NAME` và `DYNAMO_TABLE_NAME`.
-- Decode nội dung file base64 từ request upload của frontend.
-- Lưu file đã upload vào S3 trong prefix `uploads/`.
-- Trả JSON response về frontend.
-- Cấu hình S3 Event Notification.
-- Kích hoạt Lambda khi có object mới được tạo trong prefix `uploads/`.
-- Đọc bucket name và object key từ S3 event.
-- Xử lý các định dạng file được hỗ trợ: `.png`, `.jpg`, `.jpeg` và `.pdf`.
-- Chuẩn bị Lambda cho bước OCR và xử lý AI.
-
----
-
-### 5.5 Cấu hình API Gateway Upload Route
-
-[Đi tới mục 5.4](/5-workshop/5.4-configure-api-gateway-upload/)
-
-Trong mục này, chúng ta sẽ tạo route API Gateway cho chức năng upload hóa đơn.
-
-Route upload là:
+Một số API route trong project gồm:
 
 ```txt
 POST /uploads
-```
-
-Các công việc chính:
-
-- Tạo API trong Amazon API Gateway.
-- Thêm route `POST /uploads`.
-- Kết nối route với `UploadInvoiceFileFunction`.
-- Bật CORS để frontend có thể gọi API.
-- Deploy API stage.
-- Kiểm thử upload hóa đơn bằng Postman hoặc frontend.
-
----
-
-### 5.6 Tạo Fetch Invoice Lambda Function
-
-[Đi tới mục 5.6](/5-workshop/5.6-create-fetch-invoice-lambda/)
-
-Trong mục này, chúng ta sẽ tạo **FetchInvoiceDetailsFunction**.
-
-Function này chịu trách nhiệm lấy dữ liệu, tìm kiếm và cập nhật thông tin hóa đơn được lưu trong DynamoDB.
-
-Các công việc chính:
-
-- Tạo `FetchInvoiceDetailsFunction`.
-- Kết nối function với DynamoDB table `InvoiceData`.
-- Lấy danh sách tất cả hóa đơn.
-- Lấy chi tiết hóa đơn theo `InvoiceId`.
-- Tìm kiếm hóa đơn theo tên khách hàng.
-- Cập nhật tags của hóa đơn.
-- Cập nhật trạng thái starred.
-- Trả dữ liệu JSON đã được chuẩn hóa về frontend.
-
----
-
-### 5.7 Cấu hình các API Route quản lý hóa đơn
-
-[Đi tới mục 5.7](/5-workshop/5.7-configure-invoice-management-api/)
-
-Trong mục này, chúng ta sẽ cấu hình các route API Gateway cho phần quản lý hóa đơn.
-
-Các route quản lý hóa đơn bao gồm:
-
-```txt
 GET /invoice
 GET /invoice/{id}
 GET /invoice?name=<customer_name>
-GET /invoice/starred
 PATCH /invoice/tags/{id}
 PATCH /invoice/starred/{id}
 ```
 
-Các công việc chính:
-
-- Tạo các route GET và PATCH trong API Gateway.
-- Kết nối các route với `FetchInvoiceDetailsFunction`.
-- Cấu hình CORS headers.
-- Kiểm thử từng API route bằng Postman.
-- Kiểm tra dữ liệu trả về từ DynamoDB.
-- Kiểm tra log của API Gateway và Lambda trong CloudWatch.
-
----
-
-## Kết quả mong đợi
-
-Sau khi hoàn thành mục workshop này, phần backend API sẽ sẵn sàng để tích hợp với frontend.
-
-Hệ thống có thể:
-
-- Nhận request upload hóa đơn từ frontend.
-- Lưu file hóa đơn đã upload vào Amazon S3.
-- Kích hoạt Lambda xử lý thông qua S3 ObjectCreated event.
-- Lưu kết quả xử lý hóa đơn vào DynamoDB.
-- Lấy dữ liệu hóa đơn từ DynamoDB.
-- Tìm kiếm hóa đơn.
-- Cập nhật tags và trạng thái starred.
-- Trả JSON response về React frontend.
-
----
-
-## Tóm tắt luồng Backend API
-
-```txt
-1. Người dùng upload hóa đơn từ React Frontend.
-
-2. React Frontend gửi request POST /uploads đến API Gateway.
-
-3. API Gateway gọi UploadInvoiceFileFunction.
-
-4. UploadInvoiceFileFunction lưu file đã upload vào S3.
-
-5. S3 ObjectCreated trigger gọi lại UploadInvoiceFileFunction.
-
-6. UploadInvoiceFileFunction xử lý file và lưu kết quả vào DynamoDB.
-
-7. React Frontend gửi các request GET hoặc PATCH đến API Gateway để quản lý hóa đơn.
-
-8. API Gateway gọi FetchInvoiceDetailsFunction.
-
-9. FetchInvoiceDetailsFunction truy vấn hoặc cập nhật dữ liệu trong DynamoDB.
-
-10. API Gateway trả dữ liệu hóa đơn về frontend.
-```
-
----
-
-## Ghi chú
-
 {{% notice info %}}
-Mục workshop này tập trung vào phần backend API. Phần giao diện frontend, xác thực bằng Cognito và deploy bằng Amplify Hosting có thể được trình bày ở các mục riêng.
+API Gateway chỉ được bảo vệ bằng Amazon Cognito nếu bạn có cấu hình Cognito Authorizer. Nếu API route chưa được gắn Cognito Authorizer, Cognito chỉ đang bảo vệ phần đăng nhập và đăng ký ở frontend.
 {{% /notice %}}
 
-{{% notice warning %}}
-Hãy đảm bảo các Lambda Function có đúng IAM permissions trước khi kiểm thử API. Thiếu quyền có thể gây lỗi `AccessDenied` khi Lambda truy cập S3, DynamoDB, Textract hoặc CloudWatch Logs.
-{{% /notice %}}
+#### Amazon Cognito
 
-{{% notice info %}}
-Trong quá trình kiểm thử, bạn có thể sử dụng Postman trước khi kết nối API với React frontend. Điều này giúp kiểm tra từng backend route hoạt động đúng hay chưa.
-{{% /notice %}}
+Amazon Cognito được sử dụng để cung cấp chức năng xác thực người dùng cho ứng dụng frontend. Dịch vụ này cho phép người dùng đăng ký, đăng nhập và truy cập ứng dụng React một cách an toàn. Frontend sử dụng các thông tin cấu hình của Cognito User Pool như User Pool ID, App Client ID và AWS Region.
+
+#### AWS Amplify Hosting
+
+AWS Amplify Hosting được sử dụng để build và deploy ứng dụng React frontend. Frontend được kết nối với GitHub repository và sử dụng environment variables để kết nối đến Cognito và các API Gateway endpoints.
+
+Trong project này, Amplify chỉ được sử dụng cho mục đích hosting frontend. Cognito và các tài nguyên backend được cấu hình riêng thông qua AWS Console.
+
+#### Amazon CloudWatch
+
+Amazon CloudWatch là dịch vụ theo dõi và ghi log của AWS. Trong hệ thống này, CloudWatch được sử dụng để thu thập log từ Lambda functions và API Gateway. Dịch vụ này giúp kiểm tra lỗi upload file, lỗi xử lý hóa đơn, lỗi Textract, lỗi OpenAI API, lỗi DynamoDB và lỗi CORS.
+
+---
+
+### Nội dung
+
+1. [Giới thiệu](1-Introduce/)
+2. [Thiết lập môi trường](2-Environmentsetup/)
+3. [Xử lý hóa đơn bằng AI](3-AIpoweredinvoiceprocessing/)
+4. [Triển khai API Gateway](4-Deployingapigateway/)
+5. [Kiểm thử với Postman](5-Testwithpostman/)
+6. [Triển khai Frontend](6-Deployingfrontend/)
+7. [Dọn dẹp tài nguyên](7-Cleanup/)
